@@ -81,7 +81,7 @@ app.post('/', function (req, res) {
                 method: 'POST',
                 body: JSON.stringify(todo),
                 headers: { 'Content-Type': 'application/json' }
-            }).then(res => console.log(res.body));
+            }).then(res => console.log('hi'));
 
             // console.log('This is your message in readable russian ' + latin_russian_chat);
 
