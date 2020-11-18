@@ -75,7 +75,7 @@ app.post('/', function (req, res) {
                 "translated_lang": "ru",
                 "playerID": player_id,
                 "playerNick": player_nick,
-                "message": latin_russian_chat
+                "translated_message": latin_russian_chat
             };
             
             
