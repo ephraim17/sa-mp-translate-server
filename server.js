@@ -109,4 +109,4 @@ app.post('/', function (req, res) {
 })
 
 
-app.listen($PORT, () => console.log('Server started on ' + $PORT))
+app.listen(process.env.PORT , () => console.log('Server started on ' + process.env.PORT ))
