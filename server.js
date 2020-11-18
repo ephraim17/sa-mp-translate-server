@@ -25,6 +25,7 @@ app.post('/', function (req, res) {
 
     original_msg = req.body.message;
     player_id = req.body.playerid;
+    player_nick = req.body.playernick;
     res_url = req.body.response_url;
  
     const detectLanguage = async (text) => {  
@@ -72,7 +73,8 @@ app.post('/', function (req, res) {
             let todo = {
                 "original_lang": language,
                 "translated_lang": "ru",
-                "playerid": player_id,
+                "playerID": player_id,
+                "playerNick": player_nick,
                 "message": latin_russian_chat
             };
             
@@ -108,4 +110,4 @@ app.post('/', function (req, res) {
 })
 
 
-app.listen(process.env.PORT , () => console.log('Server started on ' + process.env.PORT ))
+app.listen(5000 , () => console.log('Server started on ' + 5000))
