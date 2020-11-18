@@ -81,7 +81,7 @@ app.post('/', function (req, res) {
                 method: 'POST',
                 body: JSON.stringify(todo),
                 headers: { 'Content-Type': 'application/json' }
-            }).then(res => console.log('hi'));
+            }).then(res => console.log("Original message " + original_msg + "\n" + "Translated Message " + latin_russian_chat));
 
             // console.log('This is your message in readable russian ' + latin_russian_chat);
 
@@ -102,7 +102,7 @@ app.post('/', function (req, res) {
     } 
 }) 
 
-    res.send('Sucess! Translation has been sent to ' + res_url)
+    res.send('Success! POST request with translation has been sent to ' + res_url)
 
 
 })
