@@ -102,8 +102,7 @@ app.post('/', function (req, res) {
     } 
 }) 
 
-    res.send('OK')
-    console.log(latin_russian_chat);
+    res.send('Sucess! Translation has been sent to ' + res_url)
 
 
 })
