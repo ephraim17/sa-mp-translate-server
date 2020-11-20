@@ -25,7 +25,6 @@ app.post('/', function (req, res) {
 
     original_msg = req.body.message;
     player_id = req.body.playerid;
-    lang_to = req.body.language;
     res_url = req.body.response_url;
 
  
@@ -60,7 +59,7 @@ app.post('/', function (req, res) {
             }            
         };
 
-        translateText(original_msg, lang_to)
+        translateText(original_msg, 'ru')
             
         //Send the translated message to the server  
 
@@ -73,7 +72,7 @@ app.post('/', function (req, res) {
 
             let todo = {
                 "original_lang": language,
-                "translated_lang": lang_to,
+                "translated_lang": 'ru',
                 "playerID": player_id,
                 "translated_message": latin_russian_chat
             };
