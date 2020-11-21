@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 
 
 
-app.post('/russian', function (req, res) {
+app.post('/lang-to-russian', function (req, res) {
 
     original_msg = req.body.message;
     player_id = req.body.playerid;
@@ -68,13 +68,15 @@ app.post('/russian', function (req, res) {
 
             // Convert the Cryllic Russian message to Latin
                 
+            crylic_russian_chat = res;
             latin_russian_chat = convert(res);
 
             let todo = {
-                "original_lang": language,
-                "translated_lang": 'ru',
+                "detectedLanguageCode": language,
+                "translatedLanguageCode": 'ru',
                 "playerID": player_id,
-                "translated_message": latin_russian_chat
+                "latinTranslatedMessage": latin_russian_chat,
+                "crylicTranslatedMessage": crylic_russian_chat
             };
             
             
@@ -109,7 +111,7 @@ app.post('/russian', function (req, res) {
 });
 
 
-app.post('/english', function (req, res) {
+app.post('/lang-to-english', function (req, res) {
 
     original_msg = req.body.message;
     player_id = req.body.playerid;
@@ -159,10 +161,10 @@ app.post('/english', function (req, res) {
             latin_english_chat = res;
 
             let todo = {
-                "original_lang": language,
-                "translated_lang": 'en',
+                "detectedLanguageCode": language,
+                "translatedLanguageCode": 'en',
                 "playerID": player_id,
-                "translated_message": latin_english_chat
+                "latinTranslatedMessage": latin_english_chat
             };
             
             
