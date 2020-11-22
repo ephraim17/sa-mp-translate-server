@@ -71,7 +71,7 @@ app.post('/lang-to-russian', function (req, res) {
             crylic_russian_chat = res;
             latin_russian_chat = convert(res);
 
-            let todo = {
+            todo = {
                 "detectedLanguageCode": language,
                 "translatedLanguageCode": 'ru',
                 "playerID": player_id,
