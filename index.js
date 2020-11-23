@@ -27,7 +27,6 @@ app.post('/lang-to-russian', function (req, res) {
     player_id = req.body.playerid;
     res_url = req.body.response_url;
 
- 
     const detectLanguage = async (text) => {  
         try {     
             let response = await translate.detect(text);    
@@ -46,28 +45,18 @@ app.post('/lang-to-russian', function (req, res) {
         //Translate the English messages to Russian
 
         const translateText = async (text, targetLanguage) => {                    
-
             try {                  
                 let [response] = await translate.translate(text, targetLanguage);      
-
                 return response;             
- 
             } catch (error) {                                           
-                console.log(`Error at translateText --> ${error}`);
-                    
+                console.log(`Error at translateText --> ${error}`);     
                 return 0;                                       
             }            
         };
 
         translateText(original_msg, 'ru')
-            
-        //Send the translated message to the server  
-
         .then((res) => {
-            // console.log('this is your message in Russian ' + res);                                 
 
-            // Convert the Cryllic Russian message to Latin
-                
             crylic_russian_chat = res;
             latin_russian_chat = convert(res);
 
@@ -83,28 +72,14 @@ app.post('/lang-to-russian', function (req, res) {
                 res.send(todo);
                 console.log(req.params);
               })
-            // console.log('This is your message in readable russian ' + latin_russian_chat);
-
-            // Store current user
-
-            // Get current user 
-
-      
         })
 
         .catch((err) => {   
             console.log(err);
-
-
         });
-
-        //end of send translation 
     } 
 }) 
-
-        res.redirect(307, '/to')
-
-
+        res.redirect(307, '/to');
 });
 
 
@@ -165,11 +140,10 @@ app.post('/lang-to-english', function (req, res) {
             };
             
             
-            fetch(res_url, {
-                method: 'POST',
-                body: JSON.stringify(todo),
-                headers: { 'Content-Type': 'application/json' }
-            }).then(res => console.log("Original message " + original_msg + "\n" + "Translated Message " + latin_russian_chat));
+            app.post('/to', function (req, res) {
+                res.send(todo);
+                console.log(req.params);
+              })
 
             // console.log('This is your message in readable russian ' + latin_russian_chat);
 
@@ -190,7 +164,7 @@ app.post('/lang-to-english', function (req, res) {
     } 
 }) 
 
-    res.send('Success! POST request with translation has been sent to ' + res_url)
+    res.redirect(307, '/to');
 
 
 })
@@ -252,11 +226,10 @@ app.post('/lang-to-spanish', function (req, res) {
             };
             
             
-            fetch(res_url, {
-                method: 'POST',
-                body: JSON.stringify(todo),
-                headers: { 'Content-Type': 'application/json' }
-            }).then(res => console.log("Original message " + original_msg + "\n" + "Translated Message " + latin_spanish_chat));
+            app.post('/to', function (req, res) {
+                res.send(todo);
+                console.log(req.params);
+              })
 
             // console.log('This is your message in readable russian ' + latin_russian_chat);
 
@@ -277,7 +250,7 @@ app.post('/lang-to-spanish', function (req, res) {
     } 
 }) 
 
-    res.send('Success! POST request with translation has been sent to ' + res_url)
+        res.redirect(307, '/to');
 
 
 })
