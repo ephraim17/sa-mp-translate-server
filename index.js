@@ -132,7 +132,7 @@ app.post('/lang-to-english', function (req, res) {
                 
             latin_english_chat = res;
 
-            let todo = {
+            todo = {
                 "detectedLanguageCode": language,
                 "translatedLanguageCode": 'en',
                 "playerID": player_id,
@@ -218,7 +218,7 @@ app.post('/lang-to-spanish', function (req, res) {
                 
             latin_spanish_chat = res;
 
-            let todo = {
+            todo = {
                 "detectedLanguageCode": language,
                 "translatedLanguageCode": 'es',
                 "playerID": player_id,
