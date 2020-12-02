@@ -83,7 +83,6 @@ app.post('/lang-to-russian', function (req, res) {
 todo = {
     "detectedLanguageCode": "language",
     "translatedLanguageCode": 'ru',
-    "playerID": "player_id",
     "latinTranslatedMessage": "latin_russian_chat",
     "crylicTranslatedMessage": "crylic_russian_chat"
 };
