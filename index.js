@@ -79,7 +79,15 @@ app.post('/lang-to-russian', function (req, res) {
         });
     } 
 }) 
-        res.redirect(307, '/to');
+
+todo = {
+    "detectedLanguageCode": "language",
+    "translatedLanguageCode": 'ru',
+    "playerID": "player_id",
+    "latinTranslatedMessage": "latin_russian_chat",
+    "crylicTranslatedMessage": "crylic_russian_chat"
+};
+        res.send(todo);
 });
 
 
