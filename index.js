@@ -81,10 +81,10 @@ app.post('/lang-to-russian', function (req, res) {
 }) 
 
 todo = {
-    "detectedLanguageCode": "language",
+    "detectedLanguageCode": "string",
     "translatedLanguageCode": 'ru',
-    "latinTranslatedMessage": "latin_russian_chat",
-    "crylicTranslatedMessage": "crylic_russian_chat"
+    "latinTranslatedMessage": "string",
+    "crylicTranslatedMessage": "string"
 };
         res.send(todo);
 });
