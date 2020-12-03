@@ -31,8 +31,6 @@ app.post('/lang-to-russian', function (req, res) {
     .then((language) => {                                          
         console.log('The request language is => '+ language); 
 
-    if (language != 'ru') {
-
         //Translate the English messages to Russian
     
         const translateText = async (text, targetLanguage) => {                    
@@ -68,7 +66,6 @@ app.post('/lang-to-russian', function (req, res) {
         .catch((err) => {   
             console.log(err);
         });
-    }
 }) 
 });
 
@@ -92,8 +89,6 @@ app.post('/lang-to-english', function (req, res) {
     detectLanguage(original_msg)               
     .then((language) => {                                          
         console.log('The request language is => '+ language); 
-
-    if (language != 'en') {
 
         //Translate the messages to English
 
@@ -141,7 +136,7 @@ app.post('/lang-to-english', function (req, res) {
         });
 
         //end of send translation 
-    } 
+    
 }) 
 })
 
@@ -164,8 +159,6 @@ app.post('/lang-to-spanish', function (req, res) {
     detectLanguage(original_msg)               
     .then((language) => {                                          
         console.log('The request language is => '+ language); 
-
-    if (language != 'es') {
 
         //Translate the messages to Spanish
 
@@ -212,7 +205,6 @@ app.post('/lang-to-spanish', function (req, res) {
         });
 
         //end of send translation 
-    } 
 }) 
 })
 
