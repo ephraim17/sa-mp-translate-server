@@ -3,29 +3,18 @@ const path = require('path');
 const {Translate} = require('@google-cloud/translate').v2;
 require('dotenv').config();
 var convert = require('cyrillic-to-latin');
-const fetch = require('node-fetch');
-
-// Your credentials
+const app = express()
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 const CREDENTIALS = JSON.parse(process.env.CREDENTIALS);
-
-// Configuration for the client
 const translate = new Translate({
     credentials: CREDENTIALS,
     projectId: CREDENTIALS.project_id
 });
 
-const app = express()
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-
-
 app.post('/lang-to-russian', function (req, res) {
 
     original_msg = req.body.message;
-    player_id = req.body.playerid;
-    res_url = req.body.response_url;
 
     const detectLanguage = async (text) => {  
         try {     
@@ -35,15 +24,17 @@ app.post('/lang-to-russian', function (req, res) {
             console.log(`Error at detectLanguage --> ${error}`);               
             return 0;  
         }                   
-    }             
-    detectLanguage(original_msg)               
+    }     
+
+    detectLanguage(original_msg)              
+
     .then((language) => {                                          
         console.log('The request language is => '+ language); 
 
     if (language != 'ru') {
 
         //Translate the English messages to Russian
-
+    
         const translateText = async (text, targetLanguage) => {                    
             try {                  
                 let [response] = await translate.translate(text, targetLanguage);      
@@ -55,38 +46,30 @@ app.post('/lang-to-russian', function (req, res) {
         };
 
         translateText(original_msg, 'ru')
-        .then((res) => {
+        .then((translatedresponse) => {
 
-            crylic_russian_chat = res;
-            latin_russian_chat = convert(res);
+            crylic_russian_chat = translatedresponse;
+            latin_russian_chat = convert(translatedresponse);
 
             todo = {
                 "detectedLanguageCode": language,
                 "translatedLanguageCode": 'ru',
-                "playerID": player_id,
                 "latinTranslatedMessage": latin_russian_chat,
                 "crylicTranslatedMessage": crylic_russian_chat
             };
+
+
+            res.send(todo)
             
-            app.post('/to', function (req, res) {
-                res.send(todo);
-                console.log(req.params);
-              })
         })
 
+        
+        // res.send('ok')
         .catch((err) => {   
             console.log(err);
         });
-    } 
+    }
 }) 
-
-todo = {
-    "detectedLanguageCode": "string",
-    "translatedLanguageCode": 'ru',
-    "latinTranslatedMessage": "string",
-    "crylicTranslatedMessage": "string"
-};
-        res.send(todo);
 });
 
 
@@ -132,12 +115,12 @@ app.post('/lang-to-english', function (req, res) {
             
         //Send the translated message to the server  
 
-        .then((res) => {
+        .then((translatedresponse) => {
             // console.log('this is your message in Russian ' + res);                                 
 
             // Convert the Cryllic Russian message to Latin
                 
-            latin_english_chat = res;
+            latin_english_chat = translatedresponse;
 
             todo = {
                 "detectedLanguageCode": language,
@@ -146,17 +129,7 @@ app.post('/lang-to-english', function (req, res) {
                 "latinTranslatedMessage": latin_english_chat
             };
             
-            
-            app.post('/to', function (req, res) {
-                res.send(todo);
-                console.log(req.params);
-              })
-
-            // console.log('This is your message in readable russian ' + latin_russian_chat);
-
-            // Store current user
-
-            // Get current user 
+            res.send(todo);
 
       
         })
@@ -170,10 +143,6 @@ app.post('/lang-to-english', function (req, res) {
         //end of send translation 
     } 
 }) 
-
-    res.redirect(307, '/to');
-
-
 })
 
 app.post('/lang-to-spanish', function (req, res) {
@@ -218,12 +187,12 @@ app.post('/lang-to-spanish', function (req, res) {
             
         //Send the translated message to the server  
 
-        .then((res) => {
+        .then((translatedresponse) => {
             // console.log('this is your message in Russian ' + res);                                 
 
             // Convert the Cryllic Russian message to Latin
                 
-            latin_spanish_chat = res;
+            latin_spanish_chat = translatedresponse;
 
             todo = {
                 "detectedLanguageCode": language,
@@ -232,18 +201,7 @@ app.post('/lang-to-spanish', function (req, res) {
                 "latinTranslatedMessage": latin_spanish_chat
             };
             
-            
-            app.post('/to', function (req, res) {
-                res.send(todo);
-                console.log(req.params);
-              })
-
-            // console.log('This is your message in readable russian ' + latin_russian_chat);
-
-            // Store current user
-
-            // Get current user 
-
+            res.send(todo);
       
         })
 
@@ -256,11 +214,7 @@ app.post('/lang-to-spanish', function (req, res) {
         //end of send translation 
     } 
 }) 
-
-        res.redirect(307, '/to');
-
-
 })
 
 
-app.listen(process.env.PORT , () => console.log('Server started on ' + process.env.PORT ))
+app.listen(process.env.PORT, () => console.log('Server started on ' + process.env.PORT ))
