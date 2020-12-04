@@ -55,11 +55,6 @@ app.post('/lang-to-russian', function (req, res) {
         };
 
         translateText(original_msg, 'ru')
-
-        .catch((err) => {   
-            console.log(err);
-        })
-
         .then((response) => {
 
             crylic_russian_chat = response;
@@ -80,8 +75,13 @@ app.post('/lang-to-russian', function (req, res) {
                 "crylicTranslatedMessage": "crylic_russian_chat"
             };
                     
-          res.send(todo)  
+            
     })
+
+        .catch((err) => {   
+            console.log(err);
+
+        })
 
 
     } 
