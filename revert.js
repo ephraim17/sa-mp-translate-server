@@ -76,6 +76,7 @@ app.post('/lang-to-russian', function (req, res) {
             };
                     
             res.send(ttodo);
+            return;
             
     })
 
