@@ -67,7 +67,7 @@ app.post('/lang-to-russian', function (req, res) {
                 "crylicTranslatedMessage": crylic_russian_chat
             };
 
-            // res.send(todo)
+             res.write(todo)
                     
             
     })
@@ -87,7 +87,7 @@ ttodo = {
     "latinTranslatedMessage": "latin_russian_chat",
     "crylicTranslatedMessage": "crylic_russian_chat"
 };
-res.send(ttodo)
+res.end()
 
 });
 
@@ -148,11 +148,7 @@ app.post('/lang-to-english', function (req, res) {
                 "latinTranslatedMessage": latin_english_chat
             };
             
-            
-            app.post('/to', function (req, res) {
-                res.send(todo);
-                console.log(req.params);
-              })
+                res.write(todo);
 
             // console.log('This is your message in readable russian ' + latin_russian_chat);
 
