@@ -67,13 +67,7 @@ app.post('/lang-to-russian', function (req, res) {
                 "crylicTranslatedMessage": crylic_russian_chat
             };
 
-            // res.send(todo) 
-            ttodo = {
-                "detectedLanguageCode": "language",
-                "translatedLanguageCode": 'ru',
-                "latinTranslatedMessage": "latin_russian_chat",
-                "crylicTranslatedMessage": "crylic_russian_chat"
-            };
+            // res.send(todo)
                     
             
     })
@@ -82,7 +76,13 @@ app.post('/lang-to-russian', function (req, res) {
             console.log(err);
 
         })
-
+        ttodo = {
+            "detectedLanguageCode": "language",
+            "translatedLanguageCode": 'ru',
+            "latinTranslatedMessage": "latin_russian_chat",
+            "crylicTranslatedMessage": "crylic_russian_chat"
+        };
+        res.send(ttodo)
 
     } 
 }) 
