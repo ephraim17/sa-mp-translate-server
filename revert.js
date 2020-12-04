@@ -87,8 +87,7 @@ ttodo = {
     "latinTranslatedMessage": "latin_russian_chat",
     "crylicTranslatedMessage": "crylic_russian_chat"
 };
-res.write(ttodo);
-res.end();
+res.send(ttodo)
 
 });
 
