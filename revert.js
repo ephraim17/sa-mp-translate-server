@@ -73,6 +73,11 @@ app.post('/lang-to-russian', function (req, res) {
 
         .catch((err) => {   
             console.log(err);
+
+            if(!err) {
+                console.log('No Error here ')
+            }
+
         });
     } 
 }) 
