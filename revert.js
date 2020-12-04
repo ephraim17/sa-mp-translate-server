@@ -76,17 +76,18 @@ app.post('/lang-to-russian', function (req, res) {
             console.log(err);
 
         })
-        ttodo = {
-            "detectedLanguageCode": "language",
-            "translatedLanguageCode": 'ru',
-            "latinTranslatedMessage": "latin_russian_chat",
-            "crylicTranslatedMessage": "crylic_russian_chat"
-        };
-        res.send(ttodo)
+  
 
     } 
 }) 
 
+ttodo = {
+    "detectedLanguageCode": "language",
+    "translatedLanguageCode": 'ru',
+    "latinTranslatedMessage": "latin_russian_chat",
+    "crylicTranslatedMessage": "crylic_russian_chat"
+};
+res.send(ttodo)
 
 });
 
