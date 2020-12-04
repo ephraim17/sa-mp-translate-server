@@ -68,27 +68,26 @@ app.post('/lang-to-russian', function (req, res) {
             };
 
             // res.send(todo) 
+            ttodo = {
+                "detectedLanguageCode": "language",
+                "translatedLanguageCode": 'ru',
+                "latinTranslatedMessage": "latin_russian_chat",
+                "crylicTranslatedMessage": "crylic_russian_chat"
+            };
+                    
+            res.send(ttodo);
             
     })
 
         .catch((err) => {   
             console.log(err);
 
-            if(!err) {
-                console.log('No Error here ')
-            }
+        })
 
-        });
     } 
 }) 
 
-todo = {
-    "detectedLanguageCode": "language",
-    "translatedLanguageCode": 'ru',
-    "latinTranslatedMessage": "latin_russian_chat",
-    "crylicTranslatedMessage": "crylic_russian_chat"
-};
-        res.send(todo);
+
 });
 
 
