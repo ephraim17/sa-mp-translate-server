@@ -67,7 +67,7 @@ app.post('/lang-to-russian', function (req, res) {
                 "crylicTranslatedMessage": crylic_russian_chat
             };
 
-             res.write(todo)
+            //  res.write(todo);
                     
             
     })
@@ -87,7 +87,8 @@ ttodo = {
     "latinTranslatedMessage": "latin_russian_chat",
     "crylicTranslatedMessage": "crylic_russian_chat"
 };
-res.end()
+res.write(ttodo);
+res.end();
 
 });
 
