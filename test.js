@@ -246,4 +246,4 @@ app.post('/lang-to-spanish', function (req, res) {
 })
 
 
-app.listen(3000, () => console.log('Server started on ' + process.env.PORT ))
+app.listen(process.env.PORT, () => console.log('Server started on ' + process.env.PORT ))
