@@ -48,13 +48,13 @@ app.post('/lang-to-russian', function (req, res) {
             latin_russian_chat = convert(response);
 
             todo = {
-                "detectedLanguageCode": language,
+                // "detectedLanguageCode": language,
                 "translatedLanguageCode": 'ru',
                 "latinTranslatedMessage": latin_russian_chat,
                 "crylicTranslatedMessage": crylic_russian_chat
             };
 
-            //  res.write(todo);
+            res.send(todo);
                     
             
     })
@@ -66,13 +66,13 @@ app.post('/lang-to-russian', function (req, res) {
   
  
 
-ttodo = {
-    "detectedLanguageCode": "language",
-    "translatedLanguageCode": 'ru',
-    "latinTranslatedMessage": "latin_russian_chat",
-    "crylicTranslatedMessage": "crylic_russian_chat"
-};
-res.send(ttodo)
+// ttodo = {
+//     "detectedLanguageCode": "language",
+//     "translatedLanguageCode": 'ru',
+//     "latinTranslatedMessage": "latin_russian_chat",
+//     "crylicTranslatedMessage": "crylic_russian_chat"
+// };
+// res.send(ttodo)
 
 });
 
