@@ -26,21 +26,8 @@ app.post('/lang-to-russian', function (req, res) {
     original_msg = req.body.message;
     player_id = req.body.playerid;
     res_url = req.body.response_url;
+    console.log('This is original msg ' + original_msg)
 
-    const detectLanguage = async (text) => {  
-        try {     
-            let response = await translate.detect(text);    
-            return response[0].language;    
-        } catch (error) {         
-            console.log(`Error at detectLanguage --> ${error}`);               
-            return 0;  
-        }                   
-    }             
-    detectLanguage(original_msg)               
-    .then((language) => {                                          
-        console.log('The request language is => '+ language); 
-
-    if (language != 'ru') {
 
         //Translate the English messages to Russian
 
@@ -77,9 +64,7 @@ app.post('/lang-to-russian', function (req, res) {
 
         })
   
-
-    } 
-}) 
+ 
 
 ttodo = {
     "detectedLanguageCode": "language",
@@ -261,4 +246,4 @@ app.post('/lang-to-spanish', function (req, res) {
 })
 
 
-app.listen(process.env.PORT , () => console.log('Server started on ' + process.env.PORT ))
+app.listen(3000, () => console.log('Server started on ' + process.env.PORT ))
