@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node revert.js"
+    "start": "node test.js"
   },
   "keywords": [],
   "author": "",
