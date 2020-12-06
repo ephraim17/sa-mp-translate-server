@@ -22,6 +22,35 @@ app.get('/', function (req, res) {
 
 });
 
+app.get('/lang-to-russian', function (req, res) {
+
+    res.redirect('https://www.sa-mp-translate.com');
+
+});
+
+app.get('/lang-to-english', function (req, res) {
+
+    res.redirect('https://www.sa-mp-translate.com');
+
+});
+
+app.get('/lang-to-spanish', function (req, res) {
+
+    res.redirect('https://www.sa-mp-translate.com');
+
+});
+
+app.get('/lang-to-hindi', function (req, res) {
+
+    res.redirect('https://www.sa-mp-translate.com');
+
+});
+
+app.get('/lang-to-urdu', function (req, res) {
+
+    res.redirect('https://www.sa-mp-translate.com');
+
+});
 
 
 app.post('/lang-to-russian', function (req, res) {
@@ -212,6 +241,7 @@ app.post('/lang-to-urdu', function (req, res) {
         })
 
 });
+
 
 app.post('/lang-to-hindi', function (req, res) {
 
