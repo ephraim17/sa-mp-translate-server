@@ -4,20 +4,23 @@ const {Translate} = require('@google-cloud/translate').v2;
 require('dotenv').config();
 var convert = require('cyrillic-to-latin');
 const fetch = require('node-fetch');
-
-// Your credentials
+const app = express()
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 const CREDENTIALS = JSON.parse(process.env.CREDENTIALS);
-
-// Configuration for the client
 const translate = new Translate({
     credentials: CREDENTIALS,
     projectId: CREDENTIALS.project_id
 });
+// var bodyParser = require('body-parser')
 
-const app = express()
+// app.use(bodyParser.json())
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.get('/', function (req, res) {
+
+    res.redirect('https://www.sa-mp-translate.com');
+
+});
 
 
 
@@ -51,21 +54,15 @@ app.post('/lang-to-russian', function (req, res) {
     translateText(original_msg, 'ru')
         
     .then((response) => {
-
-           
-        crylic_russian_chat = response;
-           
-        latin_russian_chat = convert(response);
-
-           
+                     
         todo = {
                 // "detectedLanguageCode": language, 
                 "translatedLanguageCode": 'ru',
-                "latinTranslatedMessage": latin_russian_chat,
-                "crylicTranslatedMessage": crylic_russian_chat
+                "latinTranslatedMessage": convert(response),
+                "crylicTranslatedMessage": response
             };
 
-            res.json(todo);
+            res.send(todo);
                         
     })
 
@@ -88,15 +85,12 @@ app.post('/lang-to-english', function (req, res) {
         try {                  
                 
             let [response] = await translate.translate(text, targetLanguage);      
-              
             return response;             
            
         } catch (error) {                                           
             
-            console.log(`Error at translateText --> ${error}`);     
-              
+            console.log(`Error at translateText --> ${error}`);      
             return 0;                                       
-            
         }            
         
     };
@@ -105,21 +99,17 @@ app.post('/lang-to-english', function (req, res) {
     translateText(original_msg, 'en')
         
     .then((response) => {
-
-           
-        latin_english_chat = response;
-
+        
         todo = {
                 // "detectedLanguageCode": language, 
                 "translatedLanguageCode": 'en',
-                "latinTranslatedMessage": latin_english_chat,
+                "latinTranslatedMessage": response,
                 "crylicTranslatedMessage": 'NULL'
             };
 
-            res.json(todo);
+            res.send(todo);
                         
     })
-
         .catch((err) => {   
             console.log(err);
 
@@ -128,9 +118,6 @@ app.post('/lang-to-english', function (req, res) {
 });
 
 
-
-    
-    
 app.post('/lang-to-spanish', function (req, res) {
 
     original_msg = req.body.message;
@@ -160,17 +147,14 @@ app.post('/lang-to-spanish', function (req, res) {
         
     .then((response) => {
 
-           
-        latin_spanish_chat = response;
-
         todo = {
                 // "detectedLanguageCode": language, 
                 "translatedLanguageCode": 'es',
-                "latinTranslatedMessage": latin_spanish_chat,
+                "latinTranslatedMessage": response,
                 "crylicTranslatedMessage": 'NULL'
             };
 
-            res.json(todo);
+            res.send(todo);
                         
     })
 
@@ -211,17 +195,14 @@ app.post('/lang-to-urdu', function (req, res) {
         
     .then((response) => {
 
-           
-        crylic_urdu_chat = response;
-
         todo = {
                 // "detectedLanguageCode": language, 
                 "translatedLanguageCode": 'ur',
                 "latinTranslatedMessage": 'NULL',
-                "crylicTranslatedMessage": crylic_urdu_chat
+                "crylicTranslatedMessage": response
             };
 
-            res.json(todo);
+            res.send(todo);
                         
     })
 
@@ -261,17 +242,14 @@ app.post('/lang-to-hindi', function (req, res) {
         
     .then((response) => {
 
-           
-        crylic_hindi_chat = response;
-
         todo = {
                 // "detectedLanguageCode": language, 
                 "translatedLanguageCode": 'hi',
                 "latinTranslatedMessage": 'NULL',
-                "crylicTranslatedMessage": crylic_hindi_chat
+                "crylicTranslatedMessage": response
             };
 
-            res.json(todo);
+            res.send(todo);
                         
     })
 
@@ -283,3 +261,4 @@ app.post('/lang-to-hindi', function (req, res) {
 });
 
 app.listen(process.env.PORT, () => console.log('Server started on ' + process.env.PORT ))
+// app.listen(3000, () => console.log('Server started on ' + 3000 ))
