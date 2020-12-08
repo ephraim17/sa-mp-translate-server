@@ -290,5 +290,52 @@ app.post('/lang-to-hindi', function (req, res) {
 
 });
 
+app.post('/lang-to-chinese', function (req, res) {
+
+    original_msg = req.body.message;
+    console.log('This is original msg ' + original_msg)
+    
+    //Translate the English messages to Russian
+    const translateText = async (text, targetLanguage) => {                    
+            
+        try {                  
+                
+            let [response] = await translate.translate(text, targetLanguage);      
+              
+            return response;             
+           
+        } catch (error) {                                           
+            
+            console.log(`Error at translateText --> ${error}`);     
+              
+            return 0;                                       
+            
+        }            
+        
+    };
+
+        
+    translateText(original_msg, 'zh')
+        
+    .then((response) => {
+
+        todo = {
+                // "detectedLanguageCode": language, 
+                "translatedLanguageCode": 'zh',
+                "latinTranslatedMessage": 'NULL',
+                "crylicTranslatedMessage": response
+            };
+
+            res.send(todo);
+                        
+    })
+
+        .catch((err) => {   
+            console.log(err);
+
+        })
+
+});
+
 app.listen(process.env.PORT, () => console.log('Server started on ' + process.env.PORT ))
 // app.listen(3000, () => console.log('Server started on ' + 3000 ))
