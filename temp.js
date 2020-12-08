@@ -1,219 +1,283 @@
-const express = require('express');
-const path = require('path');
-const {Translate} = require('@google-cloud/translate').v2;
+const Discord = require('discord.js');
+const client = new Discord.Client();
 require('dotenv').config();
-var convert = require('cyrillic-to-latin');
+const express = require('express')
 const app = express()
+const axios = require('axios');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-const CREDENTIALS = JSON.parse(process.env.CREDENTIALS);
-const translate = new Translate({
-    credentials: CREDENTIALS,
-    projectId: CREDENTIALS.project_id
-});
 
-app.post('/lang-to-russian', function (req, res) {
+client.on('ready', () => {
+    console.log(`Translater is in the builllllding!`);
+  });
 
-    original_msg = req.body.message;
+  //Channel ID's
+  var lang_to_russian = '783245422676017173';  //Source for Russian Text
+  var lang_to_english = '783148020019494962';  //Source for English Text
+  var lang_to_spanish = '783143066747666472';
+  var lang_to_urdu = '784146956884115456';
+  var lang_to_chinese = '784146991893839933';
+  var lang_to_hindi = '784147019118673980';
 
-    const detectLanguage = async (text) => {  
-        try {     
-            let response = await translate.detect(text);    
-            return response[0].language;    
-        } catch (error) {         
-            console.log(`Error at detectLanguage --> ${error}`);               
-            return 0;  
-        }                   
-    }     
 
-    detectLanguage(original_msg)              
+  client.on('message', msg => {
 
-    .then((language) => {                                          
-        console.log('The request language is => '+ language); 
+    if (msg.channel.id == lang_to_english && msg.author != '769186526688313405'){
 
-    if (language != 'ru') {
+        console.log('Soemones trying to translate text to English');
+        console.log('content ' + msg.content);
+        console.log('This person sent this msg ' + msg.author);
 
-        //Translate the English messages to Russian
-    
-        const translateText = async (text, targetLanguage) => {                    
-            try {                  
-                let [response] = await translate.translate(text, targetLanguage);      
-                return response;             
-            } catch (error) {                                           
-                console.log(`Error at translateText --> ${error}`);     
-                return 0;                                       
-            }            
+            data = {
+            message: msg.content
         };
-
-        translateText(original_msg, 'ru')
-        .then((translatedresponse) => {
-
-            crylic_russian_chat = translatedresponse;
-            latin_russian_chat = convert(translatedresponse);
-
-            todo = {
-                "detectedLanguageCode": language,
-                "translatedLanguageCode": 'ru',
-                "latinTranslatedMessage": latin_russian_chat,
-                "crylicTranslatedMessage": crylic_russian_chat
-            };
-
-
-            res.send(todo)
+        
+        axios.post('https://samp-translate.herokuapp.com/lang-to-english', data)
+            .then((res) => {
+                console.log(`Status: ${res.status}`);
+                console.log('Body: ', res.data)
+                console.log('Body: ', res.data.latinTranslatedMessage)
+      
             
-        })
+            body_data = JSON.stringify(res.data)     
+                    
+            const exampleEmbed = new Discord.MessageEmbed()	
+            .setColor('#0099ff')
+            // .setTitle('Your translated response')	
+            .setAuthor('SA-MP Translate API', 'https://i.imgur.com/eN0S5Zc.png', 'https://sa-mp-translate.com')
+            // .setDescription(body_data)
+            .setThumbnail('https://i.imgur.com/eN0S5Zc.png')
+            .setImage('https://i.imgur.com/eN0S5Zc.png')
+            .addFields(
+                { name: 'Your translated response', value: res.data.latinTranslatedMessage },
+            )
+            .addFields(
+                { name: 'Your translated response in JSON', value: body_data },
+            )
+            
+         .setFooter('Translations Powered by SA-MP Translate API');
+            
+                msg.channel.send(exampleEmbed);
+            
+            }).catch((err) => {
+                console.error(err);
+            });
 
         
-        // res.send('ok')
-        .catch((err) => {   
-            console.log(err);
-        });
-    }
-}) 
+    };
+
+    if (msg.channel.id == lang_to_russian && msg.author != '769186526688313405'){
+
+        console.log('Soemones trying to translate text to Russian');
+        console.log('content ' + msg.content);
+        console.log('This person sent this msg ' + msg.author);
+
+            data = {
+            message: msg.content
+        };
+        
+        axios.post('https://samp-translate.herokuapp.com/lang-to-russian', data)
+            .then((res) => {
+                console.log(`Status: ${res.status}`);
+                console.log('Body: ', res.data)
+                console.log('Body: ', res.data.latinTranslatedMessage)
+      
+            
+            body_data = JSON.stringify(res.data)     
+                    
+            const exampleEmbed = new Discord.MessageEmbed()	
+            .setColor('#0099ff')
+            // .setTitle('Your translated response')	
+            .setAuthor('SA-MP Translate API', 'https://i.imgur.com/eN0S5Zc.png', 'https://sa-mp-translate.com')
+            // .setDescription(body_data)
+            .setThumbnail('https://i.imgur.com/eN0S5Zc.png')
+            .setImage('https://i.imgur.com/eN0S5Zc.png')
+            .addFields(
+                { name: 'Your translated response', value: res.data.latinTranslatedMessage },
+            )
+            .addFields(
+                { name: 'Your translated response in JSON', value: body_data },
+            )
+            
+            .setFooter('Translations Powered by SA-MP Translate API');
+            
+                msg.channel.send(exampleEmbed);
+            
+            }).catch((err) => {
+                console.error(err);
+            });
+
+        
+    };
+
+    if (msg.channel.id == lang_to_spanish && msg.author != '769186526688313405'){
+
+        console.log('Soemones trying to translate text to Spanish');
+        console.log('content ' + msg.content);
+        console.log('This person sent this msg ' + msg.author);
+
+            data = {
+            message: msg.content
+        };
+        
+        axios.post('https://samp-translate.herokuapp.com/lang-to-spanish', data)
+            .then((res) => {
+                console.log(`Status: ${res.status}`);
+                console.log('Body: ', res.data)
+                console.log('Body: ', res.data.latinTranslatedMessage)
+      
+            
+            body_data = JSON.stringify(res.data)     
+                    
+            const exampleEmbed = new Discord.MessageEmbed()	
+            .setColor('#0099ff')
+            // .setTitle('Your translated response')	
+            .setAuthor('SA-MP Translate API', 'https://i.imgur.com/eN0S5Zc.png', 'https://sa-mp-translate.com')
+            // .setDescription(body_data)
+            .setThumbnail('https://i.imgur.com/eN0S5Zc.png')
+            .setImage('https://i.imgur.com/eN0S5Zc.png')
+            .addFields(
+                { name: 'Your translated response', value: res.data.latinTranslatedMessage },
+            )
+            .addFields(
+                { name: 'Your translated response in JSON', value: body_data },
+            )
+            
+            .setFooter('Translations Powered by SA-MP Translate API');
+            
+                msg.channel.send(exampleEmbed);
+            
+            }).catch((err) => {
+                console.error(err);
+            });
+
+        
+    };
+
+
+    if (msg.channel.id == lang_to_urdu && msg.author != '769186526688313405'){
+
+        console.log('Soemones trying to translate text to Russian');
+        console.log('content ' + msg.content);
+        console.log('This person sent this msg ' + msg.author);
+
+            data = {
+            message: msg.content
+        };
+        
+        axios.post('https://samp-translate.herokuapp.com/lang-to-urdu', data)
+            .then((res) => {
+                console.log(`Status: ${res.status}`);
+                console.log('Body: ', res.data)
+                console.log('Body: ', res.data.crylicTranslatedMessage)
+      
+            
+            body_data = JSON.stringify(res.data)     
+                    
+            const exampleEmbed = new Discord.MessageEmbed()	
+            .setColor('#0099ff')
+            // .setTitle('Your translated response')	
+            .setAuthor('SA-MP Translate API', 'https://i.imgur.com/eN0S5Zc.png', 'https://sa-mp-translate.com')
+            // .setDescription(body_data)
+            .setThumbnail('https://i.imgur.com/eN0S5Zc.png')
+            .setImage('https://i.imgur.com/eN0S5Zc.png')
+            .addFields(
+                { name: 'Your translated response', value: res.data.latinTranslatedMessage },
+            )
+            .addFields(
+                { name: 'Your translated response in JSON', value: body_data },
+            )
+            
+            .setFooter('Translations Powered by SA-MP Translate API');
+            
+                msg.channel.send(exampleEmbed);
+            
+            }).catch((err) => {
+                console.error(err);
+            });
+
+        
+    };
+
+    if (msg.channel.id == lang_to_chinese && msg.author != '769186526688313405'){
+
+        console.log('Soemones trying to translate text to Chinese');
+        console.log('content ' + msg.content);
+        console.log('This person sent this msg ' + msg.author);  
+        
+//             data = {
+//             "message": msg.content
+//         };
+        
+//         axios.post('https://samp-translate.herokuapp.com/lang-to-chinese', data)
+//             .then((res) => {
+//                 console.log(`Status: ${res.status}`);
+//                 console.log('Body: ', res.data);
+
+//             body_data = JSON.stringify(res.data)
+
+            
+//             const exampleEmbed = new Discord.MessageEmbed()	
+//             .setColor('#0099ff')
+//             .setTitle('POST https://samp-translate.heroukuapp.com/lang-to-chinese')	
+//             .setDescription(body_data)
+// //          .setFooter('Some footer text here');
+            
+//                 msg.channel.send(exampleEmbed);            
+
+//             }).catch((err) => {
+//                 console.error(err);
+//             });
+    };
+
+    if (msg.channel.id == lang_to_hindi && msg.author != '769186526688313405'){
+
+        console.log('Soemones trying to translate text to Hindi');
+        console.log('content ' + msg.content);
+        console.log('This person sent this msg ' + msg.author);
+
+            data = {
+            message: msg.content
+        };
+        
+        axios.post('https://samp-translate.herokuapp.com/lang-to-hindi', data)
+            .then((res) => {
+                console.log(`Status: ${res.status}`);
+                console.log('Body: ', res.data)
+                console.log('Body: ', res.data.crylicTranslatedMessage)
+      
+            
+            body_data = JSON.stringify(res.data)     
+                    
+            const exampleEmbed = new Discord.MessageEmbed()	
+            .setColor('#0099ff')
+            // .setTitle('Your translated response')	
+            .setAuthor('SA-MP Translate API', 'https://i.imgur.com/eN0S5Zc.png', 'https://sa-mp-translate.com')
+            // .setDescription(body_data)
+            .setThumbnail('https://i.imgur.com/eN0S5Zc.png')
+            .setImage('https://i.imgur.com/eN0S5Zc.png')
+            .addFields(
+                { name: 'Your translated response', value: res.data.latinTranslatedMessage },
+            )
+            .addFields(
+                { name: 'Your translated response in JSON', value: body_data },
+            )
+            
+            .setFooter('Translations Powered by SA-MP Translate API');
+            
+                msg.channel.send(exampleEmbed);
+            
+            }).catch((err) => {
+                console.error(err);
+            });
+
+        
+    };
+
+
+            
 });
-
-
-app.post('/lang-to-english', function (req, res) {
-
-    original_msg = req.body.message;
-    player_id = req.body.playerid;
-    res_url = req.body.response_url;
-
- 
-    const detectLanguage = async (text) => {  
-        try {     
-            let response = await translate.detect(text);    
-            return response[0].language;    
-        } catch (error) {         
-            console.log(`Error at detectLanguage --> ${error}`);               
-            return 0;  
-        }                   
-    }             
-    detectLanguage(original_msg)               
-    .then((language) => {                                          
-        console.log('The request language is => '+ language); 
-
-    if (language != 'en') {
-
-        //Translate the messages to English
-
-        const translateText = async (text, targetLanguage) => {                    
-
-            try {                  
-                let [response] = await translate.translate(text, targetLanguage);      
-
-                return response;             
- 
-            } catch (error) {                                           
-                console.log(`Error at translateText --> ${error}`);
-                    
-                return 0;                                       
-            }            
-        };
-
-        translateText(original_msg, 'en')
-            
-        //Send the translated message to the server  
-
-        .then((translatedresponse) => {
-            // console.log('this is your message in Russian ' + res);                                 
-
-            // Convert the Cryllic Russian message to Latin
-                
-            latin_english_chat = translatedresponse;
-
-            todo = {
-                "detectedLanguageCode": language,
-                "translatedLanguageCode": 'en',
-                "playerID": player_id,
-                "latinTranslatedMessage": latin_english_chat
-            };
-            
-            res.send(todo);
-
-      
-        })
-
-        .catch((err) => {   
-            console.log(err);
-
-
-        });
-
-        //end of send translation 
-    } 
-}) 
-})
-
-app.post('/lang-to-spanish', function (req, res) {
-
-    original_msg = req.body.message;
-    player_id = req.body.playerid;
-    res_url = req.body.response_url;
-
- 
-    const detectLanguage = async (text) => {  
-        try {     
-            let response = await translate.detect(text);    
-            return response[0].language;    
-        } catch (error) {         
-            console.log(`Error at detectLanguage --> ${error}`);               
-            return 0;  
-        }                   
-    }             
-    detectLanguage(original_msg)               
-    .then((language) => {                                          
-        console.log('The request language is => '+ language); 
-
-    if (language != 'es') {
-
-        //Translate the messages to Spanish
-
-        const translateText = async (text, targetLanguage) => {                    
-
-            try {                  
-                let [response] = await translate.translate(text, targetLanguage);      
-
-                return response;             
- 
-            } catch (error) {                                           
-                console.log(`Error at translateText --> ${error}`);
-                    
-                return 0;                                       
-            }            
-        };
-
-        translateText(original_msg, 'es')
-            
-        //Send the translated message to the server  
-
-        .then((translatedresponse) => {
-            // console.log('this is your message in Russian ' + res);                                 
-
-            // Convert the Cryllic Russian message to Latin
-                
-            latin_spanish_chat = translatedresponse;
-
-            todo = {
-                "detectedLanguageCode": language,
-                "translatedLanguageCode": 'es',
-                "playerID": player_id,
-                "latinTranslatedMessage": latin_spanish_chat
-            };
-            
-            res.send(todo);
-      
-        })
-
-        .catch((err) => {   
-            console.log(err);
-
-
-        });
-
-        //end of send translation 
-    } 
-}) 
-})
-
-app.listen(process.env.PORT, () => console.log('Server started on ' + process.env.PORT ))
+        
+client.login(process.env.BOT_TOKEN);
+app.listen(process.env.PORT , () => console.log('Server started on ' + process.env.PORT ))
