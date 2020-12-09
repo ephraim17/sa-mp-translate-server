@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node working-russian-english.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
@@ -15,10 +15,9 @@
     "cyrillic-to-latin": "^2.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "latin-to-cyrillic": "^1.0.1",
     "node-fetch": "^2.6.1",
-    "path": "^0.12.7",
-    "type-is": "^1.6.18"
+    "latin-to-cyrillic": "^1.0.1",
+    "path": "^0.12.7"
   },
   "engines": {
     "node": "14.13"
