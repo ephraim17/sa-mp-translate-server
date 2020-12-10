@@ -15,6 +15,7 @@
     "cyrillic-to-latin": "^2.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "latin-to-cyrillic": "^1.0.1",
     "node-fetch": "^2.6.1",
     "path": "^0.12.7"
   },
