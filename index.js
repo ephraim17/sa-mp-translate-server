@@ -60,6 +60,19 @@ app.post('/lang-to-russian', function (req, res) {
     res_url = req.body.response_url;
     console.log('This is original msg ' + original_msg)
     
+    const detectLanguage = async (text) => {  
+        try {     
+            let response = await translate.detect(text);    
+            return response[0].language;    
+        } catch (error) {         
+            console.log(`Error at detectLanguage --> ${error}`);               
+            return 0;  
+        }                   
+    }             
+
+    detectLanguage(original_msg)               
+    .then((language) => {            
+    
     //Translate the English messages to Russian
     const translateText = async (text, targetLanguage) => {                    
             
@@ -85,7 +98,7 @@ app.post('/lang-to-russian', function (req, res) {
     .then((response) => {
                      
         todo = {
-                // "detectedLanguageCode": language, 
+                "detectedLanguageCode": language, 
                 "translatedLanguageCode": 'ru',
                 "latinTranslatedMessage": convert(response),
                 "crylicTranslatedMessage": response
@@ -100,13 +113,27 @@ app.post('/lang-to-russian', function (req, res) {
 
         })
 
-});
+})}
+);
 
 
 app.post('/lang-to-english', function (req, res) {
 
     original_msg = req.body.message;
     console.log('This is original msg ' + original_msg)
+    
+    const detectLanguage = async (text) => {  
+        try {     
+            let response = await translate.detect(text);    
+            return response[0].language;    
+        } catch (error) {         
+            console.log(`Error at detectLanguage --> ${error}`);               
+            return 0;  
+        }                   
+    }             
+
+    detectLanguage(original_msg)               
+    .then((language) => {  
     
     //Translate the English messages to Russian
     const translateText = async (text, targetLanguage) => {                    
@@ -130,7 +157,7 @@ app.post('/lang-to-english', function (req, res) {
     .then((response) => {
         
         todo = {
-                // "detectedLanguageCode": language, 
+                "detectedLanguageCode": language, 
                 "translatedLanguageCode": 'en',
                 "latinTranslatedMessage": response,
                 "crylicTranslatedMessage": 'NULL'
@@ -144,7 +171,8 @@ app.post('/lang-to-english', function (req, res) {
 
         })
 
-});
+})}
+);
 
 
 app.post('/lang-to-spanish', function (req, res) {
@@ -152,6 +180,19 @@ app.post('/lang-to-spanish', function (req, res) {
     original_msg = req.body.message;
     console.log('This is original msg ' + original_msg)
     
+    const detectLanguage = async (text) => {  
+        try {     
+            let response = await translate.detect(text);    
+            return response[0].language;    
+        } catch (error) {         
+            console.log(`Error at detectLanguage --> ${error}`);               
+            return 0;  
+        }                   
+    }             
+
+    detectLanguage(original_msg)               
+    .then((language) => {  
+
     //Translate the English messages to Russian
     const translateText = async (text, targetLanguage) => {                    
             
@@ -177,7 +218,7 @@ app.post('/lang-to-spanish', function (req, res) {
     .then((response) => {
 
         todo = {
-                // "detectedLanguageCode": language, 
+                "detectedLanguageCode": language, 
                 "translatedLanguageCode": 'es',
                 "latinTranslatedMessage": response,
                 "crylicTranslatedMessage": 'NULL'
@@ -192,7 +233,8 @@ app.post('/lang-to-spanish', function (req, res) {
 
         })
 
-});
+})}
+);
 
 
 app.post('/lang-to-urdu', function (req, res) {
@@ -200,6 +242,19 @@ app.post('/lang-to-urdu', function (req, res) {
     original_msg = req.body.message;
     console.log('This is original msg ' + original_msg)
     
+    const detectLanguage = async (text) => {  
+        try {     
+            let response = await translate.detect(text);    
+            return response[0].language;    
+        } catch (error) {         
+            console.log(`Error at detectLanguage --> ${error}`);               
+            return 0;  
+        }                   
+    }             
+
+    detectLanguage(original_msg)               
+    .then((language) => {  
+
     //Translate the English messages to Russian
     const translateText = async (text, targetLanguage) => {                    
             
@@ -225,7 +280,7 @@ app.post('/lang-to-urdu', function (req, res) {
     .then((response) => {
 
         todo = {
-                // "detectedLanguageCode": language, 
+                "detectedLanguageCode": language, 
                 "translatedLanguageCode": 'ur',
                 "latinTranslatedMessage": 'NULL',
                 "crylicTranslatedMessage": response
@@ -240,7 +295,8 @@ app.post('/lang-to-urdu', function (req, res) {
 
         })
 
-});
+})}
+);
 
 
 app.post('/lang-to-hindi', function (req, res) {
@@ -248,6 +304,19 @@ app.post('/lang-to-hindi', function (req, res) {
     original_msg = req.body.message;
     console.log('This is original msg ' + original_msg)
     
+    const detectLanguage = async (text) => {  
+        try {     
+            let response = await translate.detect(text);    
+            return response[0].language;    
+        } catch (error) {         
+            console.log(`Error at detectLanguage --> ${error}`);               
+            return 0;  
+        }                   
+    }             
+
+    detectLanguage(original_msg)               
+    .then((language) => {  
+
     //Translate the English messages to Russian
     const translateText = async (text, targetLanguage) => {                    
             
@@ -273,7 +342,7 @@ app.post('/lang-to-hindi', function (req, res) {
     .then((response) => {
 
         todo = {
-                // "detectedLanguageCode": language, 
+                "detectedLanguageCode": language, 
                 "translatedLanguageCode": 'hi',
                 "latinTranslatedMessage": 'NULL',
                 "crylicTranslatedMessage": response
@@ -288,12 +357,26 @@ app.post('/lang-to-hindi', function (req, res) {
 
         })
 
-});
+})}
+);
 
 app.post('/lang-to-chinese', function (req, res) {
 
     original_msg = req.body.message;
     console.log('This is original msg ' + original_msg)
+    
+    const detectLanguage = async (text) => {  
+        try {     
+            let response = await translate.detect(text);    
+            return response[0].language;    
+        } catch (error) {         
+            console.log(`Error at detectLanguage --> ${error}`);               
+            return 0;  
+        }                   
+    }             
+
+    detectLanguage(original_msg)               
+    .then((language) => {  
     
     //Translate the English messages to Russian
     const translateText = async (text, targetLanguage) => {                    
@@ -320,7 +403,7 @@ app.post('/lang-to-chinese', function (req, res) {
     .then((response) => {
 
         todo = {
-                // "detectedLanguageCode": language, 
+                "detectedLanguageCode": language, 
                 "translatedLanguageCode": 'zh',
                 "latinTranslatedMessage": 'NULL',
                 "crylicTranslatedMessage": response
@@ -335,7 +418,8 @@ app.post('/lang-to-chinese', function (req, res) {
 
         })
 
-});
+})}
+);
 
 app.listen(process.env.PORT, () => console.log('Server started on ' + process.env.PORT ))
 // app.listen(3000, () => console.log('Server started on ' + 3000 ))
