@@ -12,6 +12,7 @@ const translate = new Translate({
     credentials: CREDENTIALS,
     projectId: CREDENTIALS.project_id
 });
+const translit = require('latin-to-cyrillic')
 // var bodyParser = require('body-parser')
 
 // app.use(bodyParser.json())
@@ -120,8 +121,10 @@ app.post('/lang-to-russian', function (req, res) {
 app.post('/lang-to-english', function (req, res) {
 
     original_msg = req.body.message;
-    console.log('This is original msg ' + original_msg)
-    
+    player_id = req.body.playerid;
+    res_url = req.body.response_url;
+
+ 
     const detectLanguage = async (text) => {  
         try {     
             let response = await translate.detect(text);    
@@ -131,48 +134,116 @@ app.post('/lang-to-english', function (req, res) {
             return 0;  
         }                   
     }             
-
     detectLanguage(original_msg)               
-    .then((language) => {  
-    
-    //Translate the English messages to Russian
-    const translateText = async (text, targetLanguage) => {                    
-            
-        try {                  
-                
-            let [response] = await translate.translate(text, targetLanguage);      
-            return response;             
-           
-        } catch (error) {                                           
-            
-            console.log(`Error at translateText --> ${error}`);      
-            return 0;                                       
-        }            
-        
-    };
+    .then((language) => {                                          
+        console.log('The request language is => '+ language); 
 
-        
-    translateText(original_msg, 'en')
-        
-    .then((response) => {
-        
-        todo = {
-                "detectedLanguageCode": language, 
-                "translatedLanguageCode": 'en',
-                "latinTranslatedMessage": response,
-                "crylicTranslatedMessage": 'NULL'
-            };
+    if ((language = 'ru') || (language = 'sl')) {
 
-            res.send(todo);
+        if(/[а-яА-ЯЁё]/.test(original_msg)) {
+
+            console.log('crylic')
+
+            const translateText = async (text, targetLanguage) => {                    
+
+                try {                  
+                    let [response] = await translate.translate(text, targetLanguage);      
+        
+                    return response;             
+        
+                } catch (error) {                                           
+                    console.log(`Error at translateText --> ${error}`);
                         
-    })
-        .catch((err) => {   
-            console.log(err);
+                    return 0;                                       
+                }            
+            };
+        
+            translateText(original_msg, 'en')
+                
+            //Send the translated message to the server  
+        
+            .then((translatedresponse) => {
+                // console.log('this is your message in Russian ' + res);                                 
+        
+                // Convert the Cryllic Russian message to Latin
+                    
+                latin_english_chat = translatedresponse;
+        
+                todo = {
+                    "detectedLanguageCode": language,
+                    "translatedLanguageCode": 'en',
+                    "playerID": player_id,
+                    "latinTranslatedMessage": latin_english_chat
+                };
+                
+                res.send(todo);
+        
+          
+            })
+        
+            .catch((err) => {   
+                console.log(err);
+        
+        
+            });
 
-        })
+        } else {
 
-})}
-);
+            console.log('no crylic')
+            original_msg = translit(original_msg);
+
+            const translateText = async (text, targetLanguage) => {                    
+
+                try {                  
+                    let [response] = await translate.translate(text, targetLanguage);      
+        
+                    return response;             
+        
+                } catch (error) {                                           
+                    console.log(`Error at translateText --> ${error}`);
+                        
+                    return 0;                                       
+                }            
+            };
+        
+            translateText(original_msg, 'en')
+                
+            //Send the translated message to the server  
+        
+            .then((translatedresponse) => {
+                // console.log('this is your message in Russian ' + res);                                 
+        
+                // Convert the Cryllic Russian message to Latin
+                    
+                latin_english_chat = translatedresponse;
+        
+                todo = {
+                    "detectedLanguageCode": language,
+                    "translatedLanguageCode": 'en',
+                    "playerID": player_id,
+                    "latinTranslatedMessage": latin_english_chat
+                };
+                
+                res.send(todo);
+        
+          
+            })
+        
+            .catch((err) => {   
+                console.log(err);
+        
+        
+            });
+
+        }
+
+        //Translate the messages to English
+
+
+        //end of send translation 
+    } 
+}) 
+});
 
 
 app.post('/lang-to-spanish', function (req, res) {
