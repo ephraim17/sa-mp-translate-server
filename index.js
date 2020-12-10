@@ -299,7 +299,6 @@ app.post('/lang-to-spanish', function (req, res) {
                     todo = {
                         "detectedLanguageCode": language,
                         "translatedLanguageCode": 'es',
-                        "playerID": player_id,
                         "latinTranslatedMessage": latin_english_chat
                     };
                     
@@ -347,7 +346,6 @@ app.post('/lang-to-spanish', function (req, res) {
                     todo = {
                         "detectedLanguageCode": language,
                         "translatedLanguageCode": 'es',
-                        "playerID": player_id,
                         "latinTranslatedMessage": latin_english_chat
                     };
                     
