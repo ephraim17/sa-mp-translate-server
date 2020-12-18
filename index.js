@@ -57,9 +57,9 @@ app.get('/lang-to-urdu', function (req, res) {
 app.post('/lang-to-russian', function (req, res) {
 
     original_msg = req.body.message;
-    player_id = req.body.playerid;
-    res_url = req.body.response_url;
+    api_key = req.body.apikey;
     console.log('This is original msg ' + original_msg)
+    console.log('This is apikey ' + api_key);
     
     const detectLanguage = async (text) => {  
         try {     
@@ -122,8 +122,8 @@ app.post('/lang-to-russian', function (req, res) {
 app.post('/lang-to-english', function (req, res) {
 
     original_msg = req.body.message;
-    player_id = req.body.playerid;
-    res_url = req.body.response_url;
+    api_key = req.body.apikey;
+    console.log(api_key);
 
  
     const detectLanguage = async (text) => {  
