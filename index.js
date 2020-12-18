@@ -54,7 +54,7 @@ app.get('/lang-to-urdu', function (req, res) {
 });
 
 
-app.post('/lang-to-russian', function (req, res) {
+app.post('/en-to-ru', function (req, res) {
 
     original_msg = req.body.message;
     api_key = req.body.apikey;
@@ -119,7 +119,7 @@ app.post('/lang-to-russian', function (req, res) {
 
 
 
-app.post('/lang-to-english', function (req, res) {
+app.post('/ru-to-en', function (req, res) {
 
     original_msg = req.body.message;
     api_key = req.body.apikey;
