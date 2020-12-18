@@ -23,13 +23,13 @@ app.get('/', function (req, res) {
 
 });
 
-app.get('/lang-to-russian', function (req, res) {
+app.get('/en-to-ru', function (req, res) {
 
     res.redirect('https://www.sa-mp-translate.com');
 
 });
 
-app.get('/lang-to-english', function (req, res) {
+app.get('/ru-to-en', function (req, res) {
 
     res.redirect('https://www.sa-mp-translate.com');
 
