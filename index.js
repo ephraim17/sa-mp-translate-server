@@ -173,7 +173,6 @@ app.post('/ru-to-en', function (req, res) {
                 todo = {
                     "detectedLanguageCode": language,
                     "translatedLanguageCode": 'en',
-                    "playerID": player_id,
                     "latinTranslatedMessage": latin_english_chat
                 };
                 
@@ -221,7 +220,6 @@ app.post('/ru-to-en', function (req, res) {
                 todo = {
                     "detectedLanguageCode": language,
                     "translatedLanguageCode": 'en',
-                    "playerID": player_id,
                     "latinTranslatedMessage": latin_english_chat
                 };
                 
@@ -560,3 +558,6 @@ const port = process.env.PORT || 3000
 
 app.listen(port, () => console.log('Server started on ' + port ))
 
+
+
+   
